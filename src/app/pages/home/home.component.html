@@ -1,0 +1,6 @@
+<div *ngIf="jobList">
+  <div *ngFor="let item of jobList | keyvalue">
+    <!-- <h2>{{ item.key }}</h2> -->
+    <app-slider [label]="item.key" [jobs]="item.value"></app-slider>
+  </div>
+</div>

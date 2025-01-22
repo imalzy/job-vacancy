@@ -1,0 +1,28 @@
+<div class="carousel-container">
+  <h1>{{ label }}</h1>
+  <div class="carousel">
+    <!-- Left Navigation Button -->
+    <button class="nav-button prev" (click)="prevSlide()">❮</button>
+
+    <!-- Carousel Track -->
+    <div class="carousel-wrapper">
+      <div
+        class="carousel-track"
+        [style.transform]="'translateX(' + -currentIndex * itemWidth + 'px)'"
+      >
+        <div *ngFor="let item of jobs" class="carousel-item">
+          {{ item.id}}
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Navigation Button -->
+    <button
+      class="nav-button next"
+      (click)="nextSlide()"
+      style="color: red; cursor: pointer"
+    >
+      ❯
+    </button>
+  </div>
+</div>
