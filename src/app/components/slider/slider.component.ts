@@ -26,11 +26,9 @@ export class SliderComponent implements OnInit, OnChanges, OnDestroy {
   @Input() label: string = '';
   @Input() jobs: IUPAPIResponse[] = [];
   @ViewChild('slider') slider!: ElementRef<HTMLDivElement>;
-  
-  constructor(private cdr: ChangeDetectorRef) {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
+    console.log('onchange');
   }
   ngOnInit(): void {
     console.log('Init');
