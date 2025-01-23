@@ -1,24 +1,23 @@
-import { JsonPipe, NgClass, NgFor, NgStyle } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  ElementRef,
   Input,
   OnChanges,
   OnDestroy,
   OnInit,
   SimpleChanges,
+  ViewChild,
 } from '@angular/core';
 
-import { map, Subject, takeUntil } from 'rxjs';
-
-import { JobService } from '../../services/job.service';
 import { IUPAPIResponse } from '../../models/job';
 
 @Component({
   selector: 'app-slider',
   standalone: true,
-  imports: [NgFor, JsonPipe],
+  imports: [NgFor, NgIf],
   templateUrl: './slider.component.html',
   styleUrl: './slider.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -26,10 +25,8 @@ import { IUPAPIResponse } from '../../models/job';
 export class SliderComponent implements OnInit, OnChanges, OnDestroy {
   @Input() label: string = '';
   @Input() jobs: IUPAPIResponse[] = [];
-  items = Array.from({ length: 10 }, (_, i) => `Item ${i + 1}`); // Example data with 10 items
-  currentIndex = 0;
-  itemWidth = 160; // Width of each item + gap
-
+  @ViewChild('slider') slider!: ElementRef<HTMLDivElement>;
+  
   constructor(private cdr: ChangeDetectorRef) {}
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -42,12 +39,17 @@ export class SliderComponent implements OnInit, OnChanges, OnDestroy {
   ngOnDestroy(): void {
   }
 
-  prevSlide(): void {
-    this.currentIndex = Math.max(0, this.currentIndex - 1); // Prevent going left beyond the start
+  scrollLeft() {
+    this.slider.nativeElement.scrollBy({
+      left: -200, // Scroll left by 200px
+      behavior: 'smooth',
+    });
   }
 
-  nextSlide(): void {
-    const maxIndex = this.items.length - 5; // Total items - visible items
-    this.currentIndex = Math.min(maxIndex, this.currentIndex + 1); // Prevent going right beyond the last item
+  scrollRight() {
+    this.slider.nativeElement.scrollBy({
+      left: 200, // Scroll right by 200px
+      behavior: 'smooth',
+    });
   }
 }

@@ -1,70 +1,77 @@
-$nav-button-size: 40px;
-$item-width: 250px;
-$item-gap: 10px;
+$breakpoint-tablet: 768px;
+.slider-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
 
-.carousel-container {
-  width: calc(
-    5 * #{$item-width} + 4 * #{$item-gap}
-  ); // Visible items * width + gaps
-  margin: auto;
+  .nav-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #333;
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-  h1 {
-    font-size: 22px;
-    font-weight: 700;
+    &.left {
+      left: 10px;
+    }
+
+    &.right {
+      right: 10px;
+    }
+
+    &:hover {
+      background-color: #555;
+    }
   }
-  .carousel {
-    position: relative;
 
-    .carousel-wrapper {
-      overflow: hidden;
-      width: 100%;
+  .slider {
+    display: flex;
+    width: 100%;
+    gap: 1.5rem;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 1.5rem;
+
+    /* Hide scrollbar for clean appearance */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+
+    &::-webkit-scrollbar {
+      display: none; /* Chrome, Safari */
     }
 
-    .carousel-track {
-      display: flex;
-      transition: transform 0.5s ease-in-out;
-    }
-
-    .carousel-item {
-      flex: 0 0 auto; // Ensure items don’t shrink or grow
-      width: $item-width;
+    .card {
+      flex: 0 0 calc(100% / 5); /* Default: 5 cards per row for desktop */
       height: 200px;
-      margin-right: $item-gap;
-      background-color: black;
-      color: white;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 16px;
+      text-align: center;
+      box-shadow: 0px 24px 32px -16px rgba(0, 0, 0, 0.2);
       display: flex;
+      flex-direction: column;
       justify-content: center;
-      align-items: center;
-      border-radius: 5px;
-      font-size: 16px;
-    }
+      text-transform: capitalize;
 
-    .nav-button {
-      position: absolute;
-      top: 50%;
-      width: $nav-button-size;
-      height: $nav-button-size;
-      background-color: black;
-      color: white;
-      border: none;
-      border-radius: 50%;
-      transform: translateY(-50%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      z-index: 1;
-
-      &.prev {
-        left: -$nav-button-size;
+      // Media query nested inside .card
+      /* Tablet: 3 cards per row */
+      @media screen and (max-width: 1024px) {
+        flex: 0 0 calc(100% / 3);
       }
 
-      &.next {
-        right: -$nav-button-size;
-      }
-
-      &:hover {
-        background-color: #333;
+      /* Mobile: 1 card per row */
+      @media screen and (max-width: 768px) {
+        flex: 0 0 100%;
       }
     }
   }
